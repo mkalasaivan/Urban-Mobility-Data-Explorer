@@ -14,7 +14,6 @@ def sec_delta(a, b):
     return int((b - a).total_seconds()) if (a and b) else None
 
 def kmh(distance_miles, seconds):
-    # NYC taxi often reports miles; adjust if your CSV differs
     if distance_miles is None or seconds is None or seconds <= 0:
         return None
     km = distance_miles * 1.60934
