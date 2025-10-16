@@ -20,6 +20,7 @@ pip install -r requirements.txt
 python -m venv .venv
 source .venv/bin/activate 
 pip install -r requirements.txt
+mkdir data
 ```
 
 ### 2️⃣ Process & Load Data
@@ -27,6 +28,7 @@ Place your raw NYC taxi CSV file in the `data/` directory (e.g., `data/train.csv
 
 ```bash
 python backend/process.py --input data/train.csv --out_csv data/clean_trips.csv --log data/clean_log.json
+mkdir db
 python backend/load.py --csv data/clean_trips.csv --db db/nyc.sqlite
 ```
 
