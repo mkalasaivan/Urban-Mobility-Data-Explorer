@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NYC Mobility Insights</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>NYC Mobility Insights</h1>
+    <div class="filters">
+      <label>Start <input type="date" id="start"></label>
+      <label>End <input type="date" id="end"></label>
+      <button id="refresh">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cards">
+      <div class="card"><h3>Total Trips</h3><div id="kpi-trips">-</div></div>
+      <div class="card"><h3>Avg Speed (km/h)</h3><div id="kpi-speed">-</div></div>
+      <div class="card"><h3>Avg Fare / km</h3><div id="kpi-fpkm">-</div></div>
+      <div class="card"><h3>Total Fare ($)</h3><div id="kpi-tfare">-</div></div>
+    </section>
+
+    <section>
+      <h2>Top Pickup Zones</h2>
+      <canvas id="topPickupChart"></canvas>
+    </section>
+
+    <section>
+      <h2>Recent Trips (sample)</h2>
+      <table id="trips">
+        <thead>
+          <tr>
+            <th>Pickup</th><th>Dropoff</th><th>PU Zone</th><th>DO Zone</th>
+            <th>Dist (mi)</th><th>Dur (s)</th><th>Fare</th><th>Tip</th><th>Speed</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

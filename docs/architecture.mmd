@@ -1,0 +1,5 @@
+flowchart LR
+  A[Raw NYC CSV] -->|Clean & Feature Engineer| B[(SQLite trips)]
+  B <--> C[Flask API]
+  C --> D[Web Dashboard]
+  C --> E[Insights API]
