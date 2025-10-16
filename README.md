@@ -1,118 +1,167 @@
-# NYC Mobility Insights — Full‑Stack App (Starter Kit)
+# NYC Mobility Insights — Full‑Stack Application
 
-This repository is a **complete, runnable starter** for your summative assignment using the **NYC Taxi Trip dataset**.
-It gives you a **working Flask API + SQLite DB + vanilla JS dashboard**, plus **data processing scripts** and a
-**custom algorithms module (no Counter/heapq/sort_values)** to satisfy the DSA requirement.
-
-> ✅ You must supply the official raw dataset (`train.zip` or CSVs) yourself. This starter **does not** include data.
+This project is a **complete full‑stack data analytics platform** for exploring and visualizing **New York City Taxi Trip data**.  
+It integrates a **Flask API**, **SQLite database**, and **interactive JavaScript dashboard** to deliver powerful insights about urban mobility.
 
 ---
 
-## Quick Start (Local)
+## 🚀 Quick Start (Local Setup)
 
-### 0) Prereqs
+### 0️⃣ Prerequisites
 - Python 3.10+
 - Node not required (pure HTML/JS frontend)
-- `pip install -r requirements.txt`
+- Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-### 1) Prepare environment
+### 1️⃣ Prepare Environment
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2) Process & load data
-Place your raw CSV (from the official NYC taxi dataset) somewhere, e.g., `data/train.csv`.
-Then run the processing script — it will clean data, engineer features, log exclusions, and build an SQLite DB.
+### 2️⃣ Process & Load Data
+Place your raw NYC taxi CSV file in the `data/` directory (e.g., `data/train.csv`), then clean and load it into the database:
 
 ```bash
 python backend/process.py --input data/train.csv --out_csv data/clean_trips.csv --log data/clean_log.json
 python backend/load.py --csv data/clean_trips.csv --db db/nyc.sqlite
 ```
 
-### 3) Run API
+### 3️⃣ Run the Application
 ```bash
 export FLASK_APP=backend/app.py
 flask run
-# API will start on http://127.0.0.1:5000
 ```
+The API will start at **http://127.0.0.1:5000**.
 
-### 4) Open the dashboard
-Open `frontend/index.html` in your browser (or serve with a simple static server). It talks to `http://127.0.0.1:5000`.
-
-> Tip: If you host the frontend separately, set `API_BASE` at the top of `frontend/app.js`.
+### 4️⃣ Open the Dashboard
+Open `frontend/index.html` in your browser.  
+It connects automatically to the Flask API at **http://127.0.0.1:5000**.
 
 ---
 
-## Project Structure
+## 🐳 Run with Docker (Recommended)
+
+Run the entire project — **backend**, **database**, and **frontend** — inside a single Docker container.
+
+### 1️⃣ Prerequisites
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### 2️⃣ Build the Image
+```bash
+docker compose build
+```
+
+### 3️⃣ Start the Container
+```bash
+docker compose up
+```
+
+Visit the app in your browser:  
+👉 **http://127.0.0.1:5000**
+
+✅ Both the Flask backend and the web dashboard will be running inside Docker.
+
+### 4️⃣ Stop the Container
+```bash
+docker compose down
+```
+
+### 5️⃣ Verify API Health
+```bash
+curl http://127.0.0.1:5000/api/health
+```
+Expected output:
+```json
+{"status": "ok"}
+```
+
+---
+
+## 📂 Project Structure
 
 ```
 backend/
-  app.py                # Flask API
-  process.py            # Data cleaning & feature engineering
-  load.py               # DB loader
-  schema.sql            # SQLite schema (created automatically as needed)
+  app.py
+  process.py
+  load.py
   algorithms/
-    mad_anomaly.py      # Median Absolute Deviation (manual) for outlier detection
-    topk_manual.py      # Manual top-K using simple selection (no Counter/heapq)
-db/
-  (nyc.sqlite)          # Created after load
+    mad_anomaly.py
+    topk_manual.py
 frontend/
   index.html
   app.js
   styles.css
-docs/
-  report_template.md    # 2–3 page documentation template
-  architecture.mmd      # Mermaid architecture diagram (render in Markdown previewers)
-scripts/
-  seed.sh               # Example one-liner
+db/
+  nyc.sqlite
+data/
+  clean_trips.csv
+Dockerfile
+docker-compose.yml
 requirements.txt
 README.md
 ```
 
 ---
 
-## API Overview
+## 🔍 API Endpoints
 
-- `GET /api/health` → `{status:"ok"}`
-- `GET /api/trips?start=YYYY-MM-DD&end=YYYY-MM-DD&limit=100&offset=0`
-- `GET /api/summary/metrics?start=...&end=...` → totals, avg speed, avg fare/km, etc.
-- `GET /api/summary/top-pickups?k=10&start=...&end=...` → uses **manual top‑K** algo
-- `GET /api/insights/anomalies?start=...&end=...` → detects speed outliers via **manual MAD**
-
-All endpoints support date filtering by pickup time.
-
----
-
-## DSA Requirement (Manual Implementations)
-
-- **Median Absolute Deviation (MAD)**: computes robust z‑scores to flag anomalies. Implemented **from scratch** with manual median and absolute deviations — **no** `numpy.median`, **no** `pandas.sort_values`.
-- **Top‑K Frequent Pickup Zones**: custom frequency map with a **manual selection routine** (no `Counter.most_common`, no `heapq`, no built-in sorting for the result).
-
-Each module contains:
-- Explanation
-- Pseudocode
-- Time/space complexity
-
-See `backend/algorithms/mad_anomaly.py` and `backend/algorithms/topk_manual.py`.
+| Endpoint | Description |
+|-----------|--------------|
+| `/api/health` | Health check |
+| `/api/trips?start=&end=&limit=&offset=` | Fetch trip data |
+| `/api/summary/metrics` | Summary metrics (average speed, fare/km, total fare) |
+| `/api/summary/top-pickups?k=10` | Top pickup zones (custom Top‑K algorithm) |
+| `/api/insights/anomalies` | Speed anomalies (custom MAD algorithm) |
 
 ---
 
-## Documentation
+## ⚙️ Algorithms Implemented Manually
 
-Use `docs/report_template.md` to draft your 2–3 page write‑up.
-Export to PDF for submission.
+- **Median Absolute Deviation (MAD)** — detects anomalies without using built‑in sorting or median functions.  
+- **Top‑K Frequent Zones** — finds most common pickup zones using a manual frequency selection method (no `Counter`, `heapq`, or built‑in sort).
 
-The `docs/architecture.mmd` file contains a Mermaid diagram you can embed in your report or README previews.
+Both algorithms are implemented from scratch and include pseudocode, explanations, and complexity analysis.
 
 ---
 
-## Notes
+## 🧠 Key Features
 
-- This starter reads **raw CSV** and expects columns like `pickup_datetime`, `dropoff_datetime`, `pickup_longitude`, `pickup_latitude`, `dropoff_longitude`, `dropoff_latitude`, `trip_distance`, `fare_amount`, `tip_amount`.
-  If your raw file uses different column names, edit `process.py` mappings.
-- All cleaning decisions and exclusions are logged to `--log` for transparency.
-- Indexes on time and location support efficient queries.
+- Full data pipeline: cleaning → feature engineering → database → analytics API → interactive dashboard  
+- Responsive web UI with visual summaries and insights  
+- Modular, documented Python backend with custom algorithms  
+- Lightweight and deployable anywhere using Docker  
 
-Good luck — and tell a compelling story about how the city moves!
+---
+
+## 🧰 Useful Docker Commands
+
+| Command | Description |
+|----------|-------------|
+| `docker compose build` | Build or rebuild the image |
+| `docker compose up` | Start the container |
+| `docker compose down` | Stop and remove containers |
+| `docker ps` | List running containers |
+| `docker logs nyc_mobility_app` | View application logs |
+
+---
+
+## 💡 Notes
+
+- The frontend is served directly by Flask — no separate web server is needed.  
+- The SQLite database in `db/` is mounted as a persistent volume, so your data remains intact after restarts.  
+- If you change source files, rebuild with `docker compose up --build` to apply updates.  
+- You can open a shell in the container with:
+  ```bash
+  docker exec -it nyc_mobility_app bash
+  ```
+
+---
+
+## ✨ Authors
+Developed by **Isaac Habumugisha**, **Kalasa Ivan**, and team  
+Built for analyzing real‑world **urban mobility patterns** in New York City.
