@@ -11,36 +11,54 @@
   <header>
     <h1>NYC Mobility Insights</h1>
     <div class="filters">
-      <label>Start <input type="date" id="start"></label>
-      <label>End <input type="date" id="end"></label>
+      <div class="date-filter">
+        <label>Start<input type="date" id="start"></label>
+        <label>End<input type="date" id="end"></label>
+      </div>
       <button id="refresh">Refresh</button>
     </div>
   </header>
 
   <main>
-    <section class="cards">
-      <div class="card"><h3>Total Trips</h3><div id="kpi-trips">-</div></div>
-      <div class="card"><h3>Avg Speed (km/h)</h3><div id="kpi-speed">-</div></div>
-      <div class="card"><h3>Avg Fare / km</h3><div id="kpi-fpkm">-</div></div>
-      <div class="card"><h3>Total Fare ($)</h3><div id="kpi-tfare">-</div></div>
+    <section class="kpi-cards">
+      <div class="card">
+        <div class="card-title">Total Trips</div>
+        <div class="card-value" id="kpi-trips">-</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Avg Speed (km/h)</div>
+        <div class="card-value" id="kpi-speed">-</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Avg Fare / km</div>
+        <div class="card-value" id="kpi-fpkm">-</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Total Fare ($)</div>
+        <div class="card-value" id="kpi-tfare">-</div>
+      </div>
     </section>
 
-    <section>
-      <h2>Top Pickup Zones</h2>
-      <canvas id="topPickupChart"></canvas>
+    <section class="charts">
+      <div class="chart-card">
+        <div class="chart-title">Top Pickup Zones</div>
+        <canvas id="topPickupChart"></canvas>
+      </div>
     </section>
 
-    <section>
-      <h2>Recent Trips (sample)</h2>
-      <table id="trips">
-        <thead>
-          <tr>
-            <th>Pickup</th><th>Dropoff</th><th>PU Zone</th><th>DO Zone</th>
-            <th>Dist (mi)</th><th>Dur (s)</th><th>Fare</th><th>Tip</th><th>Speed</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <section class="trips-table">
+      <div class="table-title">Recent Trips (sample)</div>
+      <div class="table-container">
+        <table id="trips">
+          <thead>
+            <tr>
+              <th>Pickup</th><th>Dropoff</th><th>PU Zone</th><th>DO Zone</th>
+              <th>Dist (mi)</th><th>Dur (s)</th><th>Fare</th><th>Tip</th><th>Speed</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </section>
   </main>
 
