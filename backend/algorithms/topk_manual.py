@@ -4,7 +4,6 @@ We build a frequency dict, then perform a selection routine to extract top K.
 """
 
 def topk_frequent(items, k):
-    # Frequency map
     freq = {}
     for x in items:
         if x is None:
@@ -14,26 +13,21 @@ def topk_frequent(items, k):
         else:
             freq[x] = 1
 
-    # Convert to list of (item, count)
     pairs = [(item, count) for item, count in freq.items()]
 
-    # Manual partial selection: repeatedly pick max (O(nk))
     k = max(0, int(k))
     result = []
     for _ in range(min(k, len(pairs))):
-        # find index of max count
         max_idx = 0
         for i in range(1, len(pairs)):
             if pairs[i][1] > pairs[max_idx][1]:
                 max_idx = i
         result.append(pairs[max_idx])
-        # remove that element (swap with last then pop for O(1))
         pairs[max_idx], pairs[-1] = pairs[-1], pairs[max_idx]
         pairs.pop()
 
-    return result  # list of (item, count)
+    return result 
 
-# Pseudocode & Complexity
 PSEUDOCODE = """
 TOPK-FREQUENT(items, k):
   freq <- empty map

@@ -82,7 +82,6 @@ def top_pickups():
 
 @app.get("/api/insights/anomalies")
 def anomalies():
-    # Return trips whose speed robust z-score exceeds threshold
     threshold = float(request.args.get("z", 3.5))
     clause, args = date_filters(request.args)
     conn = get_conn()
@@ -97,7 +96,7 @@ def anomalies():
     for i, z in enumerate(zs):
         if abs(z) >= threshold:
             flagged.append({"rowid": ids[i], "speed_kmh": speeds[i], "z": z})
-    return jsonify(flagged[:500])  # cap
+    return jsonify(flagged[:500])
 
 if __name__ == "__main__":
     app.run(debug=True)

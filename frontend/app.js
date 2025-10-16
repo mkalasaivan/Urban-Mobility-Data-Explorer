@@ -27,7 +27,6 @@ async function refresh(){
     q('kpi-tfare').textContent = metrics.total_fare ?? '-';
 
     const top = await getJSON(`${API_BASE}/api/summary/top-pickups?k=10&${p}`);
-    renderTop(top);
 
     const trips = await getJSON(`${API_BASE}/api/trips?limit=50&${p}`);
     renderTrips(trips);
@@ -35,19 +34,6 @@ async function refresh(){
     console.error(e);
     alert('Failed to load data — is the API running and DB loaded?');
   }
-}
-
-let chart;
-function renderTop(items){
-  const ctx = document.getElementById('topPickupChart').getContext('2d');
-  const labels = items.map(x => x.zone);
-  const data = items.map(x => x.count);
-  if(chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type: 'bar',
-    data: { labels, datasets: [{ label: 'Trips', data }] },
-    options: { responsive: true, plugins: { legend: { display: false } } }
-  });
 }
 
 function renderTrips(rows){
