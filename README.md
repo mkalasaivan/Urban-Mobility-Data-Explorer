@@ -37,26 +37,26 @@ flask run
 ```
 The API will start at **http://127.0.0.1:5000**.
 
-### 4️⃣ Open the Dashboard
+### Open the Dashboard
 Open `frontend/index.html` in your browser.  
 It connects automatically to the Flask API at **http://127.0.0.1:5000**.
 
 ---
 
-## 🐳 Run with Docker (Recommended)
+## Run with Docker (Recommended)
 
 Run the entire project — **backend**, **database**, and **frontend** — inside a single Docker container.
 
-### 1️⃣ Prerequisites
+### Prerequisites
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### 2️⃣ Build the Image
+### Build the Image
 ```bash
 docker compose build
 ```
 
-### 3️⃣ Start the Container
+### Start the Container
 ```bash
 docker compose up
 ```
@@ -64,14 +64,14 @@ docker compose up
 Visit the app in your browser:  
 👉 **http://127.0.0.1:5000**
 
-✅ Both the Flask backend and the web dashboard will be running inside Docker.
+ Both the Flask backend and the web dashboard will be running inside Docker.
 
-### 4️⃣ Stop the Container
+### Stop the Container
 ```bash
 docker compose down
 ```
 
-### 5️⃣ Verify API Health
+### Verify API Health
 ```bash
 curl http://127.0.0.1:5000/api/health
 ```
@@ -82,7 +82,7 @@ Expected output:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 backend/
@@ -108,7 +108,7 @@ README.md
 
 ---
 
-## 🔍 API Endpoints
+## API Endpoints
 
 | Endpoint | Description |
 |-----------|--------------|
@@ -120,7 +120,7 @@ README.md
 
 ---
 
-## ⚙️ Algorithms Implemented Manually
+## Algorithms Implemented Manually
 
 - **Median Absolute Deviation (MAD)** — detects anomalies without using built‑in sorting or median functions.  
 - **Top‑K Frequent Zones** — finds most common pickup zones using a manual frequency selection method (no `Counter`, `heapq`, or built‑in sort).
@@ -129,7 +129,7 @@ Both algorithms are implemented from scratch and include pseudocode, explanation
 
 ---
 
-## 🧠 Key Features
+## Key Features
 
 - Full data pipeline: cleaning → feature engineering → database → analytics API → interactive dashboard  
 - Responsive web UI with visual summaries and insights  
@@ -138,7 +138,7 @@ Both algorithms are implemented from scratch and include pseudocode, explanation
 
 ---
 
-## 🧰 Useful Docker Commands
+## Useful Docker Commands
 
 | Command | Description |
 |----------|-------------|
@@ -150,7 +150,7 @@ Both algorithms are implemented from scratch and include pseudocode, explanation
 
 ---
 
-## 💡 Notes
+## Notes
 
 - The frontend is served directly by Flask — no separate web server is needed.  
 - The SQLite database in `db/` is mounted as a persistent volume, so your data remains intact after restarts.  
@@ -163,5 +163,5 @@ Both algorithms are implemented from scratch and include pseudocode, explanation
 ---
 
 ## ✨ Authors
-Developed by **Isaac Habumugisha**, **Kalasa Ivan**, and team  
+Developed by **Emmanuel DUfitumukiza**, **Muhoza Olivier Ivan**, and team  
 Built for analyzing real‑world **urban mobility patterns** in New York City.
