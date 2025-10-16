@@ -165,6 +165,9 @@ Both algorithms are implemented from scratch and include pseudocode, explanation
 
 ---
 
+[Video Walkthrough](https://www.youtube.com/watch?v=p0fIM80-MkI)
+
 ## ✨ Authors
 Developed by **Emmanuel DUfitumukiza**, **Muhoza Olivier Ivan**, and team  
 Built for analyzing real‑world **urban mobility patterns** in New York City.
+
