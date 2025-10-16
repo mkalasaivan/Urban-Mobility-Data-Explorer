@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: nyc_mobility_app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - ./db:/app/db
+    environment:
+      - FLASK_APP=backend/app.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_ENV=development

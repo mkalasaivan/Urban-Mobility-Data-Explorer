@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import sqlite3, os
 from flask_cors import CORS
 from algorithms.topk_manual import topk_frequent
 from algorithms.mad_anomaly import robust_zscores
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", "db", "nyc.sqlite")
+FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "../frontend")
 
 app = Flask(__name__)  
 CORS(app)
@@ -100,3 +101,16 @@ def anomalies():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    from flask import send_from_directory
+
+
+
+
+@app.route("/")
+def serve_frontend():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/<path:path>")
+def serve_static_files(path):
+    return send_from_directory(FRONTEND_DIR, path)
